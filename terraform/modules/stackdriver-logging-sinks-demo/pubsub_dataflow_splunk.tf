@@ -22,10 +22,10 @@ resource "google_dataflow_job" "pubsub-splunk-job" {
   template_gcs_path = var.dataflow_template_gcs_path
   temp_gcs_location = "${google_storage_bucket.dataflow-temp-bucket.url}/temp"
   parameters = {
-    inputSubscription = google_pubsub_subscription.splunk.path
+    //inputSubscription = google_pubsub_subscription.splunk.path
+    inputSubscription = "projects/${var.project}/subscriptions/${google_pubsub_subscription.splunk.name}"
     token             = var.splunk_hec_token
     url               = var.splunk_hec_url
-    // outputDeadletterTopic        = "projects/sada-ala-radaoui/topics/dead-letter"
     outputDeadletterTopic        = "projects/${var.project}/topics/${google_pubsub_topic.stackdriver-logging-dead-letter-topic.name}"
     disableCertificateValidation = "true"
   }

@@ -47,6 +47,15 @@ resource "google_logging_organization_sink" "org-storage-sink" {
 
 }*/
 
+/*
+// Create a Stackdriver Export Sink for Cloud Storage on the billing account level example
+resource "google_logging_billing_account_sink" "billing-storage-sink" {
+  name            = "billing-storage-sink"
+  billing_account = "ABCDEF-012345-GHIJKL"
+
+  # Can export to pubsub, cloud storage, or bigquery
+  destination = "storage.googleapis.com/${google_storage_bucket.stackdriver-log-bucket.name}"
+}*/
 
 // To enable writing to the storage export sinks we must grant permissions for sink log writer SA
 // Grant the role of Storage Object Creator
